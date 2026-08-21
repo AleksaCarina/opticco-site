@@ -1,188 +1,603 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Opticco LLC | Advanced Optical Instruments</title>
-    <style>
-        /* Updated to match your navy blue logo */
-        :root {
-            --primary: #0A1128; /* Deep Navy Blue */
-            --accent: #3b82f6;
-            --text: #333333;
-            --bg: #f8fafc;
-        }
-        
-        body {
-            font-family: 'Segoe UI', system-ui, sans-serif;
-            margin: 0;
-            padding: 0;
-            color: var(--text);
-            background-color: var(--bg);
-            line-height: 1.6;
-        }
-        
-        header {
-            background-color: white; /* Changed to white so the navy logo pops */
-            color: var(--primary);
-            padding: 3rem 5%;
-            text-align: center;
-            border-bottom: 4px solid var(--primary);
-        }
-        
-        /* Logo styling to ensure it scales nicely */
-        .logo {
-            max-width: 350px;
-            width: 100%;
-            height: auto;
-            margin-bottom: 1rem;
-        }
-        
-        header p {
-            margin: 0;
-            font-size: 1.2rem;
-            color: #475569;
-            font-weight: 500;
-        }
-        
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 3rem 5%;
-        }
-        
-        .section {
-            margin-bottom: 4rem;
-            background: white;
-            padding: 2.5rem;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
-        }
-        
-        .section-title {
-            color: var(--primary);
-            border-bottom: 2px solid var(--accent);
-            padding-bottom: 0.5rem;
-            margin-top: 0;
-            margin-bottom: 2rem;
-        }
-        
-        .grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 3rem;
-            align-items: center;
-        }
-        
-        @media (max-width: 768px) {
-            .grid-2 {
-                grid-template-columns: 1fr;
-            }
-        }
-        
-        /* Styling for the new image tags */
-        .content-image {
-            width: 100%;
-            height: auto;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
-            display: block;
-        }
-        
-        .specs-list {
-            list-style: none;
-            padding: 0;
-        }
-        
-        .specs-list li {
-            margin-bottom: 0.75rem;
-            padding-left: 1.5rem;
-            position: relative;
-        }
-        
-        .specs-list li::before {
-            content: "→";
-            position: absolute;
-            left: 0;
-            color: var(--accent);
-            font-weight: bold;
-        }
-        
-        footer {
-            background-color: var(--primary);
-            color: white;
-            text-align: center;
-            padding: 2rem;
-            margin-top: 2rem;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="High-resolution spectrographs and computational optical systems for scientific and industrial applications.">
+  <meta name="theme-color" content="#081329">
+  <title>Opticco LLC | Advanced Optical Instruments</title>
+
+  <!-- Browser-tab logo. Keep LOGO_small.svg in the same folder as this file. -->
+  <link rel="icon" type="image/svg+xml" href="LOGO_small.svg">
+  <link rel="shortcut icon" href="LOGO_small.svg">
+  <link rel="apple-touch-icon" href="LOGO_small.svg">
+  <link rel="preload" href="LOGO.svg" as="image" type="image/svg+xml">
+
+  <style>
+    :root {
+      --navy: #081329;
+      --navy-soft: #102142;
+      --blue: #2f74e8;
+      --blue-bright: #69a2ff;
+      --ink: #101a2c;
+      --muted: #5b687b;
+      --line: #dce4ef;
+      --white: #fff;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; scroll-padding-top: 96px; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--white);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+    a { color: inherit; }
+    img { max-width: 100%; }
+
+    .skip-link {
+      position: fixed;
+      z-index: 100;
+      top: 10px;
+      left: 10px;
+      padding: .7rem 1rem;
+      color: var(--navy);
+      background: var(--white);
+      border-radius: 8px;
+      transform: translateY(-160%);
+    }
+    .skip-link:focus { transform: translateY(0); }
+
+    .site-header {
+      position: fixed;
+      inset: 0 0 auto;
+      z-index: 50;
+      background: rgba(255,255,255,.94);
+      border-bottom: 1px solid transparent;
+      backdrop-filter: blur(16px);
+      transition: box-shadow .3s ease, border-color .3s ease;
+    }
+    .site-header.is-scrolled {
+      border-color: rgba(8,19,41,.1);
+      box-shadow: 0 10px 35px rgba(8,19,41,.07);
+    }
+    .nav-shell {
+      width: min(1180px, calc(100% - 40px));
+      height: 112px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: height .35s cubic-bezier(.2,.8,.2,1);
+    }
+    .is-scrolled .nav-shell { height: 72px; }
+    .brand {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+    .brand-logo {
+      width: 320px;
+      max-height: 70px;
+      transition: width .35s cubic-bezier(.2,.8,.2,1), max-height .35s ease;
+    }
+    .is-scrolled .brand-logo {
+      width: 185px;
+      max-height: 44px;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      font-size: .9rem;
+      font-weight: 650;
+    }
+    .nav-links a { text-decoration: none; }
+    .nav-links a:not(.nav-cta) {
+      color: #34425a;
+      transition: color .2s ease;
+    }
+    .nav-links a:not(.nav-cta):hover { color: var(--blue); }
+    .nav-cta {
+      padding: .68rem 1.1rem;
+      color: white;
+      background: var(--navy);
+      border-radius: 999px;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      padding: 190px 20px 90px;
+      background: linear-gradient(180deg, #fff 0%, #f5f9fe 100%);
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      opacity: .45;
+      pointer-events: none;
+      background-image:
+        linear-gradient(rgba(47,116,232,.07) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(47,116,232,.07) 1px, transparent 1px);
+      background-size: 54px 54px;
+      mask-image: linear-gradient(to bottom, black, transparent 78%);
+    }
+    .hero-glow {
+      position: absolute;
+      border-radius: 999px;
+      pointer-events: none;
+    }
+    .hero-glow-one {
+      width: 520px;
+      height: 520px;
+      right: -180px;
+      top: 150px;
+      background: radial-gradient(circle, rgba(60,129,242,.18), transparent 68%);
+    }
+    .hero-glow-two {
+      width: 380px;
+      height: 380px;
+      left: -180px;
+      top: 0;
+      background: radial-gradient(circle, rgba(85,161,255,.13), transparent 68%);
+    }
+    .hero-inner {
+      position: relative;
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      text-align: center;
+    }
+    .eyebrow {
+      margin: 0 0 1rem;
+      color: var(--blue);
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: .19em;
+      text-transform: uppercase;
+    }
+    .hero h1 {
+      max-width: 850px;
+      margin: 0 auto;
+      color: var(--navy);
+      font-size: clamp(3.4rem, 7vw, 6.8rem);
+      line-height: .96;
+      letter-spacing: -.065em;
+    }
+    .hero-copy {
+      max-width: 720px;
+      margin: 1.7rem auto 0;
+      color: var(--muted);
+      font-size: clamp(1.05rem, 2vw, 1.28rem);
+      line-height: 1.7;
+    }
+    .hero-actions {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: .8rem;
+      margin-top: 2rem;
+    }
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: .5rem;
+      padding: .88rem 1.25rem;
+      border-radius: 999px;
+      font-weight: 750;
+      text-decoration: none;
+      transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+    }
+    .button:hover { transform: translateY(-2px); }
+    .button-primary {
+      color: white;
+      background: var(--blue);
+      box-shadow: 0 10px 25px rgba(47,116,232,.22);
+    }
+    .button-primary:hover {
+      background: #2468d3;
+      box-shadow: 0 13px 30px rgba(47,116,232,.28);
+    }
+    .button-secondary {
+      color: var(--navy);
+      background: white;
+      border: 1px solid var(--line);
+    }
+    .hero-visual {
+      position: relative;
+      margin: 4.3rem auto 0;
+      padding: 10px;
+      background: rgba(255,255,255,.76);
+      border: 1px solid rgba(8,19,41,.12);
+      border-radius: 24px;
+      box-shadow: 0 35px 80px rgba(18,45,85,.15);
+    }
+    .hero-visual > img {
+      width: 100%;
+      height: clamp(320px, 55vw, 610px);
+      display: block;
+      object-fit: cover;
+      border-radius: 16px;
+    }
+    .hero-caption {
+      position: absolute;
+      right: 30px;
+      bottom: 30px;
+      width: min(360px, calc(100% - 40px));
+      padding: 1.05rem 1.2rem;
+      color: white;
+      text-align: left;
+      background: rgba(8,19,41,.88);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: 14px;
+      backdrop-filter: blur(14px);
+    }
+    .hero-caption span {
+      display: block;
+      margin-bottom: .25rem;
+      color: var(--blue-bright);
+      font-size: .7rem;
+      font-weight: 800;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+    }
+    .hero-caption strong { font-size: .9rem; line-height: 1.45; }
+
+    .section {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 120px 0;
+    }
+    .section-heading {
+      display: grid;
+      grid-template-columns: .75fr 1.35fr 1fr;
+      gap: 2rem;
+      align-items: start;
+      margin-bottom: 4rem;
+    }
+    .section-heading h2,
+    .engineering-copy h2,
+    .contact-section h2 {
+      margin: 0;
+      color: var(--navy);
+      font-size: clamp(2.3rem, 4vw, 4rem);
+      line-height: 1.05;
+      letter-spacing: -.045em;
+    }
+    .section-heading > p:last-child {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+    .feature-grid {
+      display: grid;
+      grid-template-columns: 1.12fr .88fr;
+      gap: clamp(2.5rem, 6vw, 6rem);
+      align-items: center;
+    }
+    .feature-image-wrap { position: relative; }
+    .feature-image {
+      width: 100%;
+      aspect-ratio: 4/3;
+      display: block;
+      object-fit: cover;
+      border-radius: 20px;
+      box-shadow: 0 24px 55px rgba(8,19,41,.14);
+    }
+    .image-label {
+      position: absolute;
+      left: 18px;
+      bottom: 18px;
+      padding: .55rem .8rem;
+      color: white;
+      background: rgba(8,19,41,.84);
+      border-radius: 999px;
+      font-size: .72rem;
+      font-weight: 750;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      backdrop-filter: blur(8px);
+    }
+    .feature-lead {
+      margin: 0 0 2.2rem;
+      color: var(--navy);
+      font-size: 1.35rem;
+      font-weight: 650;
+      line-height: 1.55;
+    }
+    .spec-list { list-style: none; margin: 0; padding: 0; }
+    .spec-list li {
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 1rem;
+      padding: 1.35rem 0;
+      border-top: 1px solid var(--line);
+    }
+    .spec-list li:last-child { border-bottom: 1px solid var(--line); }
+    .spec-list li > span {
+      color: var(--blue);
+      font-size: .76rem;
+      font-weight: 800;
+      letter-spacing: .1em;
+    }
+    .spec-list strong {
+      display: block;
+      color: var(--navy);
+      font-size: 1.02rem;
+    }
+    .spec-list p {
+      margin: .25rem 0 0;
+      color: var(--muted);
+      font-size: .94rem;
+    }
+
+    .engineering-band {
+      padding: 110px 20px;
+      color: white;
+      background: var(--navy);
+    }
+    .engineering-inner {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: 1fr .9fr;
+      gap: clamp(3rem, 7vw, 7rem);
+      align-items: center;
+    }
+    .eyebrow-light { color: var(--blue-bright); }
+    .engineering-copy h2 { color: white; }
+    .engineering-copy > p:not(.eyebrow) {
+      max-width: 620px;
+      margin: 1.5rem 0 2.5rem;
+      color: #b9c7db;
+      font-size: 1.06rem;
+    }
+    .capability-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1px;
+      overflow: hidden;
+      background: rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.14);
+      border-radius: 16px;
+    }
+    .capability-grid div { padding: 1.1rem; background: var(--navy-soft); }
+    .capability-grid strong,
+    .capability-grid span { display: block; }
+    .capability-grid strong { font-size: .92rem; }
+    .capability-grid span {
+      margin-top: .25rem;
+      color: #9eafc7;
+      font-size: .8rem;
+    }
+    .engineering-image {
+      width: 100%;
+      aspect-ratio: 4/4.3;
+      display: block;
+      object-fit: cover;
+      border-radius: 20px;
+      box-shadow: 0 30px 70px rgba(0,0,0,.28);
+    }
+
+    .contact-section {
+      width: min(1180px, calc(100% - 40px));
+      margin: 0 auto;
+      padding: 120px 0;
+      display: grid;
+      grid-template-columns: 1.3fr .7fr;
+      gap: 5rem;
+      align-items: end;
+    }
+    .contact-copy p { margin: 0 0 1.5rem; color: var(--muted); }
+    .contact-copy .button { font-size: .9rem; }
+    footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 2rem;
+      padding: 2rem max(20px, calc((100% - 1180px)/2));
+      color: #95a5bc;
+      background: var(--navy);
+      font-size: .78rem;
+    }
+    footer img {
+      width: 155px;
+      filter: brightness(0) invert(1);
+      opacity: .92;
+    }
+    footer p { margin: 0; }
+
+    @media (max-width: 900px) {
+      .nav-shell { height: 88px; }
+      .brand-logo { width: 235px; }
+      .is-scrolled .brand-logo { width: 165px; }
+      .nav-links a:not(.nav-cta) { display: none; }
+      .hero { padding-top: 150px; }
+      .section-heading { grid-template-columns: 1fr; gap: 1rem; }
+      .feature-grid,
+      .engineering-inner,
+      .contact-section { grid-template-columns: 1fr; }
+      .contact-section { gap: 2rem; }
+    }
+
+    @media (max-width: 560px) {
+      .nav-shell { width: calc(100% - 28px); }
+      .brand-logo { width: 190px; }
+      .is-scrolled .brand-logo { width: 145px; }
+      .nav-cta { padding: .55rem .8rem; font-size: .78rem; }
+      .hero { padding-left: 14px; padding-right: 14px; }
+      .hero h1 { font-size: clamp(3rem, 15vw, 4.5rem); }
+      .hero-actions { align-items: stretch; flex-direction: column; }
+      .hero-caption { position: static; width: auto; margin: 10px 0 0; }
+      .hero-visual > img { height: 320px; }
+      .section { width: calc(100% - 28px); padding: 85px 0; }
+      .engineering-band { padding: 85px 14px; }
+      .capability-grid { grid-template-columns: 1fr; }
+      .contact-section { width: calc(100% - 28px); padding: 85px 0; }
+      footer { align-items: flex-start; flex-direction: column; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      *, *::before, *::after {
+        scroll-behavior: auto !important;
+        transition-duration: .01ms !important;
+        animation-duration: .01ms !important;
+      }
+    }
+  </style>
 </head>
+
 <body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
 
-    <header>
-        <!-- The SVG logo replaces the text header -->
-        <img src="LOGO.svg" alt="Opticco LLC Logo" class="logo">
-        <p>Manufacturing Advanced Optical Instruments</p>
-    </header>
-
-    <div class="container">
-        
-        <!-- Hero / Intro Section (Picture 1) -->
-        <section class="section">
-            <h2 class="section-title">Next-Generation Spectroscopy</h2>
-            <div class="grid-2">
-                <div>
-                    <p>Welcome to Opticco. We specialize in designing and manufacturing cutting-edge optical hardware for scientific and industrial applications. Our mission is to push the boundaries of light measurement through computational techniques and innovative hardware architectures.</p>
-                </div>
-                <!-- Picture 1 -->
-                <img src="photo1.jpg" alt="Opticco hardware overview" class="content-image">
-            </div>
-        </section>
-
-        <!-- Variable Slit HDR Tech Section (Picture 2) -->
-        <section class="section">
-            <h2 class="section-title">Variable Slit HDR Technology</h2>
-            <div class="grid-2">
-                <!-- Picture 2 -->
-                <img src="photo2.jpg" alt="COMPUTATIONAL HIGH DYNAMIC RANGE (HDR) SPECTROGRAPH" class="content-image">
-                <div>
-                    <h3>COMPUTATIONAL HIGH DYNAMIC RANGE (HDR) SPECTROGRAPH WITH ACTIVE MULTI-STATE APERTURE SWEEP</h3>
-                    <p>Our flagship technology utilizes an active multi-state aperture sweep to achieve unprecedented dynamic range in spectral data acquisition. By dynamically controlling the entrance slit width, we optimize exposure levels across complex spectral lines.</p>
-                    <ul class="specs-list">
-                        <li>Active multi-state aperture sweeping</li>
-                        <li>Hybrid optical skeleton utilizing pultruded carbon fiber</li>
-                        <li>3D-printed low-coefficient of thermal expansion structures</li>
-                    </ul>
-                </div>
-            </div>
-        </section>
-
-        <!-- Team / Engineering Section (Picture 3) -->
-        <section class="section">
-            <h2 class="section-title">Precision Engineering</h2>
-            <div class="grid-2">
-                <div>
-                    <p>Our prototyping and manufacturing process blends advanced diagnostics with meticulous hand-tuned assembly. From multi-layer PCB electromagnetic array integration to our custom hardware skeletons, every instrument is rigorously tested and stabilized to ensure maximum optical performance.</p>
-                </div>
-                <!-- Picture 3 -->
-                <img src="photo3.jpg" alt="14-layer PCB and structural components" class="content-image">
-            </div>
-        </section>
-
-        <!-- Contact Section -->
-        <section class="section" style="text-align: center;">
-            <h2 class="section-title" style="display: inline-block;">Get In Touch</h2>
-            <p>For investment inquiries, prototyping partnerships, or technical questions regarding our spectrograph technologies.</p>
-            <p style="font-size: 1.25rem; margin-top: 1.5rem;">
-                <strong>Email:</strong> <a href="mailto:aleksa.pjanic@opticco.tech" style="color: var(--accent); text-decoration: none;">aleksa.pjanic@opticco.tech</a>
-            </p>
-        </section>
-
+  <header class="site-header" id="site-header">
+    <div class="nav-shell">
+      <a class="brand" href="#top" aria-label="Opticco home">
+        <img src="LOGO.svg" alt="Opticco LLC" class="brand-logo">
+      </a>
+      <nav class="nav-links" aria-label="Primary navigation">
+        <a href="#technology">Technology</a>
+        <a href="#engineering">Engineering</a>
+        <a class="nav-cta" href="#contact">Contact</a>
+      </nav>
     </div>
+  </header>
 
-    <footer>
-        &copy; 2026 Opticco LLC. All rights reserved.
-    </footer>
+  <main id="main-content">
+    <section class="hero" id="top">
+      <div class="hero-glow hero-glow-one" aria-hidden="true"></div>
+      <div class="hero-glow hero-glow-two" aria-hidden="true"></div>
+      <div class="hero-inner">
+        <p class="eyebrow">Advanced optical instrumentation</p>
+        <h1>See more in every spectrum.</h1>
+        <p class="hero-copy">
+          Opticco develops high-resolution spectrographs and computational optical
+          systems engineered for demanding scientific and industrial work.
+        </p>
+        <div class="hero-actions">
+          <a class="button button-primary" href="#technology">Explore the technology</a>
+          <a class="button button-secondary" href="mailto:aleksa.pjanic@opticco.tech">Start a conversation</a>
+        </div>
+        <div class="hero-visual">
+          <img src="photo1.jpg" alt="Opticco optical instrument prototype">
+          <div class="hero-caption">
+            <span>Opticco platform</span>
+            <strong>High-resolution. Thermally stable. Computationally enhanced.</strong>
+          </div>
+        </div>
+      </div>
+    </section>
 
+    <section class="section" id="technology">
+      <div class="section-heading">
+        <p class="eyebrow">Flagship platform</p>
+        <h2>Computational HDR spectroscopy</h2>
+        <p>
+          An active multi-state aperture sweep captures complementary measurements,
+          extending usable dynamic range while preserving fine spectral detail.
+        </p>
+      </div>
+
+      <div class="feature-grid">
+        <div class="feature-image-wrap">
+          <img src="photo2.jpg" alt="Computational high dynamic range spectrograph" class="feature-image" loading="lazy">
+          <span class="image-label">Active aperture architecture</span>
+        </div>
+        <div class="feature-copy">
+          <p class="feature-lead">
+            Designed to address the traditional tradeoff between light collection,
+            resolving power, and detector saturation.
+          </p>
+          <ul class="spec-list">
+            <li>
+              <span>01</span>
+              <div>
+                <strong>Multi-state aperture sweep</strong>
+                <p>Precisely controlled slit states synchronize with image acquisition.</p>
+              </div>
+            </li>
+            <li>
+              <span>02</span>
+              <div>
+                <strong>Computational reconstruction</strong>
+                <p>Complementary exposures are combined into a high-dynamic-range spectral result.</p>
+              </div>
+            </li>
+            <li>
+              <span>03</span>
+              <div>
+                <strong>Low-CTE optical skeleton</strong>
+                <p>Pultruded carbon fiber and PPS-CF structures support long-term stability.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <section class="engineering-band" id="engineering">
+      <div class="engineering-inner">
+        <div class="engineering-copy">
+          <p class="eyebrow eyebrow-light">Precision engineering</p>
+          <h2>Built from the optical path outward.</h2>
+          <p>
+            Our development process integrates optical design, embedded electronics,
+            structural engineering, and computational calibration into a single instrument platform.
+          </p>
+          <div class="capability-grid">
+            <div><strong>Optomechanics</strong><span>Thermally stable structural systems</span></div>
+            <div><strong>Electronics</strong><span>Custom multilayer control hardware</span></div>
+            <div><strong>Algorithms</strong><span>Calibration and spectral reconstruction</span></div>
+            <div><strong>Validation</strong><span>Prototype testing and characterization</span></div>
+          </div>
+        </div>
+        <img src="photo3.jpg" alt="Opticco multilayer PCB and structural components" class="engineering-image" loading="lazy">
+      </div>
+    </section>
+
+    <section class="contact-section" id="contact">
+      <div>
+        <p class="eyebrow">Work with Opticco</p>
+        <h2>Let’s build the next generation of optical instruments.</h2>
+      </div>
+      <div class="contact-copy">
+        <p>For technical collaborations, prototyping partnerships, customer inquiries, or investment discussions.</p>
+        <a class="button button-primary" href="mailto:aleksa.pjanic@opticco.tech">
+          aleksa.pjanic@opticco.tech <span aria-hidden="true">↗</span>
+        </a>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <img src="LOGO.svg" alt="Opticco LLC">
+    <p>&copy; 2026 Opticco LLC. All rights reserved.</p>
+  </footer>
+
+  <script>
+    (() => {
+      const header = document.getElementById("site-header");
+      let ticking = false;
+
+      function updateHeader() {
+        header.classList.toggle("is-scrolled", window.scrollY > 72);
+        ticking = false;
+      }
+
+      window.addEventListener("scroll", () => {
+        if (!ticking) {
+          window.requestAnimationFrame(updateHeader);
+          ticking = true;
+        }
+      }, { passive: true });
+
+      updateHeader();
+    })();
+  </script>
 </body>
 </html>
